@@ -16,8 +16,9 @@ class UserController extends Controller
 {
     public function actionIndex()
     {
-        $text = 'Список команд:' . PHP_EOL.
-            '1. init-role - Инициализация ролей';
+        $text = 'Список команд:' . PHP_EOL .
+            '1. init-role - Инициализация ролей' . PHP_EOL .
+            '2. update - обновление структуры ролей после изменения';
 
         echo $text;
     }
@@ -48,6 +49,10 @@ class UserController extends Controller
         Yii::$app->authManager->add($worker);
 
 
+        $isAdmin = Yii::$app->authManager->createPermission('isAdmin');
+        $isAdmin->description = 'Право администратора';
+        Yii::$app->authManager->add($isAdmin);
+
         $createTeam = Yii::$app->authManager->createPermission('createTeam');
         $createTeam->description = 'Право на создание команды';
         Yii::$app->authManager->add($createTeam);
@@ -65,6 +70,8 @@ class UserController extends Controller
         Yii::$app->authManager->add($taskExecution);
 
 
+        \Yii::$app->authManager->addChild($admin, $isAdmin);
+
         Yii::$app->authManager->addChild($worker, $taskExecution);
         Yii::$app->authManager->addChild($worker, $createTeam);
 
@@ -79,5 +86,14 @@ class UserController extends Controller
 
         echo 'Все роли и права созданы успешно. Для root-пользователя назначена роль Admin';
 
+    }
+
+    public function actionUpdate()
+    {
+        /* Код для обновления */
+
+        /* Конец кода */
+
+        echo 'Обновление завершено.';
     }
 }
