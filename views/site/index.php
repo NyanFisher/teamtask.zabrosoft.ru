@@ -4,6 +4,13 @@
 
 $this->title = 'My Yii Application';
 ?>
+
+<?php
+    if (\Yii::$app->user->can('workArticle')){
+        echo '<h1>Ты Администратор епта!!!!</h1>';
+    }
+?>
+
 <div class="site-index">
 
     <div class="jumbotron">

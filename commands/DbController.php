@@ -34,7 +34,10 @@ class DbController extends Controller
 
     public function actionIndex()
     {
-        echo 'Контроллер для работы с базой данных.';
+        $text = 'Список команд:' . PHP_EOL.
+            '1. init-root-user - Добавление первого Root пользователя';
+
+        echo $text;
     }
 
     public function actionInitRootUser()
@@ -56,7 +59,7 @@ class DbController extends Controller
                 echo 'Ошибка добавления пользователя';
             }
         }else{
-            echo 'Пользователь '. $this->username . ' уже существует в базе данных';
+            echo 'Пользователь root уже существует в базе данных';
         }
     }
 }
