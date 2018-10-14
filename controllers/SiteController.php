@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +62,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $form = new LoginForm();
+
+        if (\Yii::$app->request->isPost){
+            $form->load(\Yii::$app->request->post());
+            if ($form->login()){
+                return $this->redirect('site/index');
+            }
+        }
+
+        if (\Yii::$app->user->isGuest){
+            return $this->render('login', [
+                'model' => $form
+            ]);
+        }else{
+            return $this->render('index');
+        }
     }
 
     /**

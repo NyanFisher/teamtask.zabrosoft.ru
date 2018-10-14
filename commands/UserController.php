@@ -9,6 +9,7 @@
 namespace app\commands;
 
 use app\models\User;
+use Yii;
 use yii\console\Controller;
 
 class UserController extends Controller
@@ -21,38 +22,62 @@ class UserController extends Controller
         echo $text;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function actionInitRole()
     {
-        $admin = \Yii::$app->authManager->createRole('admin');
+        /* Администратор ресурса */
+        $admin = Yii::$app->authManager->createRole('admin');
         $admin->description = 'Администратор';
-        \Yii::$app->authManager->add($admin);
+        Yii::$app->authManager->add($admin);
 
-        $reader = \Yii::$app->authManager->createRole('reader');
-        $reader->description = 'Читатель';
-        \Yii::$app->authManager->add($reader);
+        /* Руководитель команды */
+        $teamleader = Yii::$app->authManager->createRole('teamleader');
+        $teamleader->description = 'Руководитель команды';
+        Yii::$app->authManager->add($teamleader);
 
-        $author = \Yii::$app->authManager->createRole('author');
-        $author->description = 'Автор';
-        \Yii::$app->authManager->add($author);
+        /* Руководитель проекта */
+        $projectleader = Yii::$app->authManager->createRole('projectleader');
+        $projectleader->description = 'Руководитель проекта';
+        Yii::$app->authManager->add($projectleader);
 
-
-        $workArticle = \Yii::$app->authManager->createPermission('workArticle');
-        $workArticle->description = 'Право на создании статьи';
-        \Yii::$app->authManager->add($workArticle);
-
-        $deleteComment = \Yii::$app->authManager->createPermission('deleteComment');
-        $deleteComment->description = 'Право на создании статьи';
-        \Yii::$app->authManager->add($deleteComment);
-
-        \Yii::$app->authManager->addChild($author, $workArticle);
-        \Yii::$app->authManager->addChild($author, $deleteComment);
-        \Yii::$app->authManager->addChild($admin, $author);
+        /* Исполнитель/Работник */
+        $worker = Yii::$app->authManager->createRole('worker');
+        $worker->description = 'Исполнитель';
+        Yii::$app->authManager->add($worker);
 
 
-        $userRole = \Yii::$app->authManager->getRole('admin');
-        \Yii::$app->authManager->assign($userRole, 1);
+        $createTeam = Yii::$app->authManager->createPermission('createTeam');
+        $createTeam->description = 'Право на создание команды';
+        Yii::$app->authManager->add($createTeam);
 
-        echo 'Все роли созданы успешно. Для root-пользователя назначена роль Admin';
+        $createProject = Yii::$app->authManager->createPermission('createProject');
+        $createProject->description = 'Право на создание проекта';
+        Yii::$app->authManager->add($createProject);
+
+        $createTask = Yii::$app->authManager->createPermission('createTask');
+        $createTask->description = 'Право на создание задания';
+        Yii::$app->authManager->add($createTask);
+
+        $taskExecution = Yii::$app->authManager->createPermission('taskExecution');
+        $taskExecution->description = 'Право на выполнение задания';
+        Yii::$app->authManager->add($taskExecution);
+
+
+        Yii::$app->authManager->addChild($worker, $taskExecution);
+        Yii::$app->authManager->addChild($worker, $createTeam);
+
+        Yii::$app->authManager->addChild($projectleader, $createTask);
+        Yii::$app->authManager->addChild($projectleader, $taskExecution);
+
+        Yii::$app->authManager->addChild($teamleader, $createProject);
+        Yii::$app->authManager->addChild($teamleader, $projectleader);
+
+        $userRole = Yii::$app->authManager->getRole('admin');
+        Yii::$app->authManager->assign($userRole, 1);
+
+        echo 'Все роли и права созданы успешно. Для root-пользователя назначена роль Admin';
 
     }
 }
