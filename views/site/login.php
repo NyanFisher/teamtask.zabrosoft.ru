@@ -7,34 +7,38 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h1><?= Html::encode($this->title) ?></h1>
+            </div>
+            <div class="panel-body">
+                <?php $form = ActiveForm::begin([
+                    'id' => 'login-form',
+                ]); ?>
 
-    <p>Please fill out the following fields to login:</p>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>
+                <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="<?= \yii\helpers\Url::to('signup') ?>">Регистрация</a>
+                    </div>
+                </div>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
-
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?php ActiveForm::end(); ?>
             </div>
         </div>
-
-    <?php ActiveForm::end(); ?>
-    <br>
-    <a href="<?= \yii\helpers\Url::to('signup') ?>">Регистрация</a>
+    </div>
+    <div class="col-md-4"></div>
 </div>

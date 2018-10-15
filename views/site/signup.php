@@ -6,21 +6,33 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>Введите данные для регистрации:</p>
-    <div class="row">
-        <div class="col-lg-5">
-
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-            <?= $form->field($model, 'email') ?>
-            <?= $form->field($model, 'password')->passwordInput() ?>
-            <div class="form-group">
-                <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h1><?= Html::encode($this->title) ?></h1>
             </div>
-            <?php ActiveForm::end(); ?>
+            <div class="panel-body">
+                <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>
+                <?= $form->field($model, 'email')->label('e-mail') ?>
+                <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="<?= \yii\helpers\Url::to('login') ?>">Авторизация</a>
+                    </div>
+                </div>
 
+                <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
+    <div class="col-md-4"></div>
 </div>

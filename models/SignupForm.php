@@ -22,15 +22,15 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            ['username', 'required', 'message' => 'Это поле не может быть пустым'],
             ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Пользователь с таким логином уже существует.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'required', 'message' => 'Это поле не может быть пустым'],
+            ['email', 'email', 'message' => 'Не верный формат почты'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'Этот адрес уже зарегестрирован.'],
-            ['password', 'required'],
+            ['password', 'required', 'message' => 'Это поле не может быть пустым'],
             ['password', 'string', 'min' => 6],
         ];
     }
