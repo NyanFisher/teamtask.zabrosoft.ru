@@ -63,6 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->view->params['module'] = 'main';
         $form = new LoginForm();
         if (\Yii::$app->user->isGuest){
             return $this->redirect('site/login');
@@ -108,7 +109,6 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {

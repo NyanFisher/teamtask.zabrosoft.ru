@@ -16,6 +16,18 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+        'worker' => [
+            'class' => 'app\modules\worker\Module',
+        ],
+        'team' => [
+            'class' => 'app\modules\team\Module',
+        ],
+        'project' => [
+            'class' => 'app\modules\project\Module',
+        ],
+        'profile' => [
+            'class' => 'app\modules\profile\Module',
+        ],
     ],
     'components' => [
         'request' => [

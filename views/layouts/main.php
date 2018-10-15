@@ -12,9 +12,12 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,12 +26,12 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
+
 <body>
 <?php $this->beginBody() ?>
 
-<?php if (!\Yii::$app->user->isGuest): ?>
-
-<div class="wrap">
+<?php if (!Yii::$app->user->isGuest): ?> <!-- Если гость, открываем страницу авторизации -->
+    <div class="wrap">
         <?php
         NavBar::begin([
             'brandLabel' => Yii::$app->name,
@@ -40,7 +43,11 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Главная', 'url' => ['/']],
+                ['label' => 'Задания', 'url' => ['/worker/']],
+                ['label' => 'Проекты', 'url' => ['/project/']],
+                ['label' => 'Команды', 'url' => ['/team/']],
+                ['label' => 'Профиль', 'url' => ['/profile/']],
                 Yii::$app->user->can('isAdmin') ? (
                 ['label' => 'Админка', 'url' => ['/admin/']]
                 ) : '',
@@ -50,7 +57,7 @@ AppAsset::register($this);
                     '<li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Выйти',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()
@@ -62,27 +69,55 @@ AppAsset::register($this);
         ?>
 
         <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
+
+            <!--      Добавление подшаблона в зависимости от местоположения      -->
+            <?php if ($this->params['module'] == 'admin'): ?>
+                <?php $this->beginContent('@app/modules/admin/views/layouts/admin.php'); ?>
+                <?= $content ?>
+                <?php $this->endContent(); ?>
+            <?php endif; ?>
+
+            <?php if ($this->params['module'] == 'profile'): ?>
+                <?php $this->beginContent('@app/modules/profile/views/layouts/profile.php'); ?>
+                <?= $content ?>
+                <?php $this->endContent(); ?>
+            <?php endif; ?>
+
+            <?php if ($this->params['module'] == 'worker'): ?>
+                <?php $this->beginContent('@app/modules/worker/views/layouts/worker.php'); ?>
+                <?= $content ?>
+                <?php $this->endContent(); ?>
+            <?php endif; ?>
+
+            <?php if ($this->params['module'] == 'project'): ?>
+                <?php $this->beginContent('@app/modules/project/views/layouts/project.php'); ?>
+                <?= $content ?>
+                <?php $this->endContent(); ?>
+            <?php endif; ?>
+
+            <?php if ($this->params['module'] == 'team'): ?>
+                <?php $this->beginContent('@app/modules/team/views/layouts/team.php'); ?>
+                <?= $content ?>
+                <?php $this->endContent(); ?>
+            <?php endif; ?>
+
+            <?php if ($this->params['module'] == 'main'): ?>
+                <?= $content ?>
+            <?php endif; ?>
+            <!--      Конец      -->
         </div>
     </div>
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-left">&copy; zabrosoft.ru <?= date('Y') ?></p>
         </div>
     </footer>
-
 <?php endif; ?>
 
-<?php if (\Yii::$app->user->isGuest):?>
+<?php if (Yii::$app->user->isGuest):?>
 
-<?= $content ?>
+    <?= $content ?>
 
 <?php endif; ?>
 

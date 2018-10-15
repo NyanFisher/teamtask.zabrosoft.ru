@@ -1,11 +1,12 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\modules\worker\controllers;
 
+use app\models\User;
 use yii\web\Controller;
 
 /**
- * Default controller for the `admin` module
+ * Default controller for the `worker` module
  */
 class DefaultController extends Controller
 {
@@ -15,7 +16,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $this->view->params['module'] = 'admin';
+        $this->view->params['module'] = 'worker';
         return $this->render('index');
     }
 }

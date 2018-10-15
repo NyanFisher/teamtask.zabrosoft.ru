@@ -28,7 +28,7 @@ AppAsset::register($this);
 
 <div class="row">
     <div class="col-md-3">
-        <h5>Меню Администратора</h5>
+        <h5>Меню Проекта</h5>
     </div>
     <div class="col-md-9">
         <?= $content ?>
