@@ -44,5 +44,7 @@ class NewTeamForm extends Model
         $saved->user_id = \Yii::$app->user->getId();
         $saved->date_at = date('Y-m-d');
         $saved->save();
+
+        return $saved;
     }
 }

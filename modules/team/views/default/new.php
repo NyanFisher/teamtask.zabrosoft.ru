@@ -12,17 +12,17 @@ use vova07\imperavi\Widget;
     <div class="panel-body">
         <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($form_data, 'title')->textInput() ?>
-            <?= $form->field($form_data, 'description')->widget(Widget::className(), [
-                'settings' => [
-                    'lang' => 'ru',
-                    'minHeight' => 200,
-                    'plugins' => [
-                        'clips',
-                        'fullscreen',
-                    ],
+        <?= $form->field($form_data, 'title')->textInput() ?>
+        <?= $form->field($form_data, 'description')->widget(Widget::className(), [
+            'settings' => [
+                'lang' => 'ru',
+                'minHeight' => 200,
+                'plugins' => [
+                    'clips',
+                    'fullscreen',
                 ],
-            ])?>
+            ],
+        ])?>
             <div class="text-right">
                 <?= Html::submitButton('Создать', ['class' => 'btn btn-success']) ?>
             </div>
