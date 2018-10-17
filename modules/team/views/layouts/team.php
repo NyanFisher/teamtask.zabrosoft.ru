@@ -5,6 +5,7 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -27,10 +28,19 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="row">
-    <div class="col-md-3">
-        <h5>Меню Команды</h5>
+    <div class="col-md-2 padding-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h5 class="text-center"><?= \app\models\User::findOne(Yii::$app->user->getId())->username ?></h5>
+            </div>
+            <div class="panel-body padding-0">
+                <div class="list-group">
+                    <a href="<?= Url::to(['new']) ?>" class="list-group-item">Создать команду</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10 padding-1">
         <?= $content ?>
     </div>
 </div>

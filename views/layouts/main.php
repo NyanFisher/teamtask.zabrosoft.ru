@@ -37,7 +37,7 @@ AppAsset::register($this);
             'brandLabel' => Yii::$app->name,
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
+                'class' => 'navbar-inverse',
             ],
         ]);
         echo Nav::widget([
@@ -68,7 +68,7 @@ AppAsset::register($this);
         NavBar::end();
         ?>
 
-        <div class="container">
+        <div class="container-fluid">
 
             <!--      Добавление подшаблона в зависимости от местоположения      -->
             <?php if ($this->params['module'] == 'admin'): ?>
