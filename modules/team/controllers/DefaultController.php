@@ -18,7 +18,12 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $this->view->params['module'] = 'team';
-        return $this->render('index');
+
+        $teams = Team::find()->select('id ,title')->all();
+
+        return $this->render('index', [
+            'teams' => $teams
+        ]);
     }
 
     public function actionNew()
@@ -30,7 +35,11 @@ class DefaultController extends Controller
         if (\Yii::$app->request->isPost){
             if ($form_data->load(\Yii::$app->request->post())){
                 if ($team = $form_data->saveTeam()){
-                    return $this->redirect('index');
+                    return $this->render('view', [
+                        'id' => $team->id,
+                        'title' => $team->title,
+                        'is_new' => true,
+                    ]);
                 }
             }
         }
@@ -38,5 +47,20 @@ class DefaultController extends Controller
         return $this->render('new',[
             'form_data' => $form_data,
         ]);
+    }
+
+    public function actionView($id)
+    {
+        $this->view->params['module'] = 'team';
+
+        if ($team = Team::findOne($id)){
+            return $this->render('view', [
+                'id' => $team->id,
+                'title' => $team->title,
+                'is_new' => false,
+            ]);
+        }
+
+        return $this->redirect('index');
     }
 }

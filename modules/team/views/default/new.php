@@ -7,7 +7,16 @@ use vova07\imperavi\Widget;
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h5>Новая команда</h5>
+        <div class="row">
+            <div class="col-md-1 text-left">
+                <a href="<?= \yii\helpers\Url::to(['index']) ?>" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                </a>
+            </div>
+            <div class="col-md-11">
+                <h5 class="text-center">Новая команда</h5>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
         <?php $form = ActiveForm::begin(); ?>

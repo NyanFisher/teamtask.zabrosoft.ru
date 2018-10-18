@@ -45,6 +45,7 @@ class SiteController extends Controller
      */
     public function actions()
     {
+        $this->view->params['module'] = 'main';
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',

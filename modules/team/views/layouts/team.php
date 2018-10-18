@@ -35,7 +35,10 @@ AppAsset::register($this);
             </div>
             <div class="panel-body padding-0">
                 <div class="list-group">
-                    <a href="<?= Url::to(['new']) ?>" class="list-group-item">Создать команду</a>
+                    <a href="<?= Url::to(['new']) ?>" class="list-group-item">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                        Создать команду
+                    </a>
                 </div>
             </div>
         </div>
